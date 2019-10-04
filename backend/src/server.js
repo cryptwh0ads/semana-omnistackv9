@@ -17,7 +17,7 @@ mongoose.connect("", {
   useUnifiedTopology: true
 });
 
-// TODO: Configurar redis para armazenar os usuarios
+// TODO: Configure Redis for save users info
 const connectedUsers = {};
 
 io.on("connection", socket => {
