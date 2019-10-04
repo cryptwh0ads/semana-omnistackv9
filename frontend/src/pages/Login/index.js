@@ -1,45 +1,44 @@
 import React, { useState } from "react";
+import api from '../../services/api';
 
-import api from "../../services/api";
 
-export default function Login({ history }) {
-  const [email, setEmail] = useState("");
+export default function Login({ history }){
+  const [email, setEmail] = useState('');
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    // console.log('Hello World!');
-    // console.log(email);
-
-    const response = await api.post("/sessions", { email });
-
-    // console.log(response)
+  async function handleSubmit(event){
+    event.preventDefault(); //nao redireciona a pagina, permanece na mesma, mesmo depois do clique 
+    const response = await api.post('/sessions', { email })
 
     const { _id } = response.data;
 
-    // console.log(_id);
-    localStorage.setItem("user", _id);
+    localStorage.setItem('user', _id); //armazena o id na memoria do navegador 
 
-    history.push('/dashboard');
+    history.push('/dashboard'); //navegação para a proxima pagina 
   }
+
+  function handleEmailChange(event){
+    setEmail(event.target.value);
+  }
+
   return (
     <>
-      <p>
-        Ofereça <strong>spots</strong> para programadores e encontre{" "}
-        <strong>talentos</strong> para sua empresa.
-      </p>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">E-MAIL *</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="Seu melhor e-mail"
-          value={email}
-          onChange={event => setEmail(event.target.value)}
-        />
-        <button type="submit" className="btn">
-          Entrar
-        </button>
-      </form>
-    </>
+    <p>
+    Ofereça <strong>spots</strong>  para programadores e encontre  <strong>talentos</strong>  para sua empresa
+    </p>
+  <form onSubmit={handleSubmit}>
+    <label htmlFor="email">Email *</label>
+    <input 
+    type="email" 
+    id="email" 
+    placeholder="Seu melhor email"
+    value={email}
+    onChange={ handleEmailChange }
+    
+    />
+
+    <button className="btn" type="submit">Entrar</button>
+  </form>
+  </>
+
   );
 }

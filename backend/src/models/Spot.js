@@ -1,23 +1,23 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-// Estrutura do Usuario
 const SpotSchema = new mongoose.Schema({
-    thumbnail: String, // Colunas da minha tabela
-    company: String,
-    price: Number,
-    techs: [String],
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }
+  thumbnail: String,
+  company: String,
+  price: Number,
+  techs: [String],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 }, {
-    toJSON: {
-        virtuals: true,
-    },
+  toJSON:{
+    virtuals: true
+  }
 });
 
-SpotSchema.virtual('thumbnail_url').get(function() {
-    return `http://localhost:3333/files/${this.thumbnail}`;
+SpotSchema.virtual('thumbnail_url').get(function(){
+  return `http://localhost:3333/files/${this.thumbnail}`
 });
 
-module.exports = mongoose.model('Spot', SpotSchema);
+
+module.exports = mongoose.model('Spot', SpotSchema)
